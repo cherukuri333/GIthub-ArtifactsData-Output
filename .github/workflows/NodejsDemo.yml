@@ -24,8 +24,8 @@ jobs:
       - name: upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
-          path: myArtifact-Folder
+          name: my-artifact-dist-files
+          path: dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
