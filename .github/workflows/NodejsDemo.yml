@@ -1,38 +1,31 @@
-name: NodeJS-project-test-build-Deploy
-on: push
+name: Deploy website
+on:
+  push:
 jobs:
-  testing:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Downloading Code-step-1
+      - name: Get code
         uses: actions/checkout@v3
-      - name: Install NodeJS-step-2
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install Dependencies-step-3
+      - name: Install dependencies
         run: npm ci
-      - name: npm test-setep-4
-        run: npm test
-  Building:
-    needs: testing
+      - name: Lint code
+        run: npm run lint
+      - name: Test code
+        run: npm run test
+  build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Downloading Code-step-1
+      - name: Get code
         uses: actions/checkout@v3
-      - name: Install NodeJS-step-2
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install Dependencies-step-3
+      - name: Install dependencies
         run: npm ci
-      - name: build project-step-4
+      - name: Build website
         run: npm run build
-  Deploying:
-    needs: Building
-	runs-on: ubuntu-latest
-	steps:
-	  - name: Deploying
-	    run: echo Deploying
-	
-
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: echo "Deployed"
