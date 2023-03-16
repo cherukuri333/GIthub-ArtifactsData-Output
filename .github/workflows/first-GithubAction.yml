@@ -1,5 +1,5 @@
-name: NodeJS-project
-on: workflow_dispatch
+name: NodeJS-project-test-build-Deploy
+on: push
 jobs:
   firstjob-testing:
     runs-on: ubuntu-latest
@@ -28,3 +28,11 @@ jobs:
         run: npm ci
       - name: build project-step-4
         run: npm run build
+  Thirdjob-Deploying:
+    needs: Secondjob-Building
+	runs-on: ubuntu-latest
+	steps:
+	  - name: Deploying
+	    run: echo Deploying
+	
+
